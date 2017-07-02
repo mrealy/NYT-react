@@ -26,8 +26,22 @@ db.once("open", function() {
     console.log("Mongoose connection was successful");
 });
 
-app.get("/", function(req, res) {
+app.get("*", function(req, res) {
     res.sendFile(__dirname + "/public/index.html");
+});
+
+app.get("/api/saved", function(req, res) {
+    Articles.find({}).then(function(Articles) {
+        res.render();
+    });
+});
+
+app.post("/api/saved", function(req, res) {
+
+});
+
+app.delete("/api/saved", function(req, res) {
+
 });
 
 app.listen(PORT, function() {

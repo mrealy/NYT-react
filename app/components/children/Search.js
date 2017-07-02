@@ -2,19 +2,20 @@ var React = require("react");
 
 var Link = require("react-router").Link;
 
-var helper = require("./utils/helper");
+var helper = require("../utils/helper");
 var Results = require("./Results");
 
 var Search = React.createClass({
     getInitialState: function() {
         return {
+            results: {},
             topic: "",
             startYear: "",
-            endYear: "",
-            articles: []
+            endYear: ""
         };
     },
     handleChange: function (event) {
+        console.log("TEXT CHANGED");
         var newState = {};
         newState[event.target.id] = event.target.value;
         this.setState(newState);
@@ -22,9 +23,9 @@ var Search = React.createClass({
     handleSubmit: function (event) {
         event.preventDefault();
         var state = this.state;
-        // this.setState(this.getInitialState());
+        console.log("CLICKED");
         helper.getArticles(state).then(function (articles) {
-            this.setState({ articles: articles });
+            this.setState({ results: articles });
         }.bind(this));
     },
     render: function() {
@@ -42,23 +43,23 @@ var Search = React.createClass({
                             </div>
                             <label> Date Range: </label>
                             <div className="input-group">
-                                <input type="text" className="form-control" 
+                                <input type="number" className="form-control" id="startYear"
                                 value={this.state.startYear} onChange={this.handleChange}
                                 placeholder="Start Date" />
 
                                 <span className="input-group-addon" />
 
-                                <input type="text" className="form-control" 
+                                <input type="number" className="form-control" id="endYear"
                                 value={this.state.endYear} onChange={this.handleChange}
                                 placeholder="End Date" />
                             </div>
                             <br/>
-                            <Link to="/results"><button className="btn btn-default" value="submit">Search</button></Link>
-                            
+                            <button className="btn btn-default" onClick={this.handleSubmit}>Search</button>
                         </form>
                     </div>
                 </div>
-                <Results articles={this.state.articles} />
+                <Results articles={this.state.results} />
+                {this.props.children}
             </div>
         );
     }

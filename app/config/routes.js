@@ -11,7 +11,6 @@ var IndexRoute = router.IndexRoute;
 
 var Main = require("../components/Main");
 var Search = require("../components/children/Search");
-var Results = require("../components/children/Results");
 var Saved = require("../components/children/Saved");
 
 module.exports = (

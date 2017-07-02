@@ -1,6 +1,8 @@
 var React = require("react");
 
 var Saved = React.createClass({
+    //componentDidMount
+    //handleClick for deleting articles
     render: function() {
         return (
                 <div className="panel panel-default">
