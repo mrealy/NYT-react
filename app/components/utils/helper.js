@@ -22,13 +22,33 @@ var helper = {
     //write a saveArticles function to save the article title and link on click of the save button
     saveArticle: function (title, date, url) {
         var savedArticle = { title: title, date: date, url: url };
-        return (axios.post("/articles", savedArticle).then(function (res) {
-            console.log("Axios post results", res.data._id);
-            return res.data._id;
+        console.log("savedArticle is", savedArticle);
+        return axios.post("/articles", savedArticle).then(function (response) {
+            console.log("Axios post results", response.data._id);
+            console.log(response);
+            return response.data._id;
         }).catch(function (e) {
             console.log(e);
-        }));
+        });
+    },
+    getSaved: function() {
+        return axios.get("/articles").then(function(results) {
+            console.log("axios results getSaved", results);
+            return results;
+        });
+    },
+    deleteSaved: function(title, data, url) {
+        return axios.delete("/articles", {
+            params: {
+                "title": title,
+                "data": data,
+                "url": url
+            }
+        }).then(function(results) {
+            console.log("axios reults deleteSaved", results);
+            return results;
+        });
     }
-}
+};
 
 module.exports = helper;

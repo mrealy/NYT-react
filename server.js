@@ -5,6 +5,8 @@ var methodOverride = require("method-override");
 
 mongoose.Promise = Promise;
 
+var Article = require("./models/Article");
+
 var app = express();
 var PORT = process.env.PORT || 3000;
 
@@ -30,12 +32,11 @@ app.get("*", function(req, res) {
     res.sendFile(__dirname + "/public/index.html");
 });
 app.get("/articles", function(req, res) {
-    Article.find({}).exec(function(err, doc) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(doc);
-        }
+    Article.find({}).then(function(articles) {
+        console.log("get route BUAHA");
+        res.send(articles);
+    }).catch(function(e) {
+        console.log(e);
     });
 });
 

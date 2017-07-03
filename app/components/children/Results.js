@@ -33,7 +33,7 @@ var Results = React.createClass({
                         <a href={article.web_url}>
                             <button className="btn btn-default">View</button>
                         </a>
-                        <button className="btn btn-primary" onClick={this.handleClick(article)}>Save</button>
+                        <button className="btn btn-primary" onClick={function () { this.handleClick(article) }.bind(this) }>Save</button>
                     </li>
                 </div>
             );
