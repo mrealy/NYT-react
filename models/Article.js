@@ -16,7 +16,7 @@ var Article = new Schema({
         default: Date.now
     },
     // required link
-    link: {
+    url: {
         type: String,
         required: true
     }

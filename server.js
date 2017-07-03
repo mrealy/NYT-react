@@ -29,19 +29,38 @@ db.once("open", function() {
 app.get("*", function(req, res) {
     res.sendFile(__dirname + "/public/index.html");
 });
-
-app.get("/api/saved", function(req, res) {
-    Articles.find({}).then(function(Articles) {
-        res.render();
+app.get("/articles", function(req, res) {
+    Article.find({}).exec(function(err, doc) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(doc);
+        }
     });
 });
 
-app.post("/api/saved", function(req, res) {
-
+app.post("/articles", function(req, res) {
+    var newArticle = new Article(req.body);
+    
+    newArticle.save(function(err, doc) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(doc);
+        }
+    });
 });
 
-app.delete("/api/saved", function(req, res) {
+app.delete("/articles", function(req, res) {
+    var url = req.param("url");
 
+    Article.find({ url: url }).remove().exec(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send("Deleted");
+        }
+    });
 });
 
 app.listen(PORT, function() {

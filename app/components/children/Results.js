@@ -14,6 +14,14 @@ var Results = React.createClass({
         };
     },
     //handleClick for saving articles
+    handleClick: function(item) {
+        console.log("CLICKED SAVE");
+        console.log(item);
+        
+        helper.saveArticle(item.headline.main, item.pub_date, item.web_url).then(function() {
+            console.log("handleclick saved", item.web_url);
+        });
+    },
     listArticles: function() {
         console.log(this.props);
         return this.props.articles.map(function(article, index) {
@@ -25,7 +33,7 @@ var Results = React.createClass({
                         <a href={article.web_url}>
                             <button className="btn btn-default">View</button>
                         </a>
-                        <button className="btn btn-primary">Save</button>
+                        <button className="btn btn-primary" onClick={this.handleClick(article)}>Save</button>
                     </li>
                 </div>
             );
@@ -48,9 +56,9 @@ var Results = React.createClass({
                     </div>
                     <div className="panel-body">
                         <ul className="list-group">
-                            {/*
+                            
                             {this.listArticles()}
-                            */}
+                            
                         </ul>
                     </div>
                     </div>
@@ -62,7 +70,7 @@ var Results = React.createClass({
 
     render: function() {
         console.log("render", this.props.articles);
-        if (!this.props.articles) {
+        if (!this.props.articles.map) {
             return (
                 <li className="list-group-item">
                 <h3>

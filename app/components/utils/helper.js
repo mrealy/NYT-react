@@ -20,9 +20,11 @@ var helper = {
     },
 
     //write a saveArticles function to save the article title and link on click of the save button
-    saveArticle: function (postData) {
-        return (axios.post("/articles", postData).then(function (res) {
-            console.log(res);
+    saveArticle: function (title, date, url) {
+        var savedArticle = { title: title, date: date, url: url };
+        return (axios.post("/articles", savedArticle).then(function (res) {
+            console.log("Axios post results", res.data._id);
+            return res.data._id;
         }).catch(function (e) {
             console.log(e);
         }));
