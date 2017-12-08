@@ -35,21 +35,22 @@ var Search = React.createClass({
                     <div className="panel-body">
                         <h2>Search for an article</h2>
                         <form onSubmit={this.handleSubmit}>
-                            <div className="form-group">
+                            <div className="form-group col-md-12">
                                 <label htmlFor="topic">Topic:</label>
                                 <input type="text" className="form-control" id="topic" 
                                 value={this.state.topic} onChange={this.handleChange}
                                 placeholder="Type an article topic here to search for" />
                             </div>
-                            <label> Date Range: </label>
-                            <div className="input-group">
-                                <input type="number" className="form-control" id="startYear"
+                            
+                            <div className="form-group col-md-12">
+                                <label> Date Range: </label>
+                                <input type="date" className="form-control col-md-6" id="startYear"
                                 value={this.state.startYear} onChange={this.handleChange}
                                 placeholder="Start Date" />
 
                                 <span className="input-group-addon" />
 
-                                <input type="number" className="form-control" id="endYear"
+                                <input type="date" className="form-control col-md-6" id="endYear"
                                 value={this.state.endYear} onChange={this.handleChange}
                                 placeholder="End Date" />
                             </div>
