@@ -5,18 +5,22 @@ var methodOverride = require("method-override");
 
 mongoose.Promise = Promise;
 
+//import Article model
 var Article = require("./models/Article");
 
 var app = express();
 var PORT = process.env.PORT || 3000;
 
+// bodyParser settings
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+// Set static 'public' folder
 app.use(express.static("./public"));
 
+//Mongo DB settings =====================================
 mongoose.connect("mongodb://localhost/NYTarticles");
 var db = mongoose.connection;
 
@@ -27,13 +31,11 @@ db.on("error", function(error) {
 db.once("open", function() {
     console.log("Mongoose connection was successful");
 });
+// ======================================================
 
-app.get("*", function(req, res) {
-    res.sendFile(__dirname + "/public/index.html");
-});
+// GET, POST, and DELETE routes =========================
 app.get("/articles", function(req, res) {
     Article.find({}).then(function(articles) {
-        console.log("get route BUAHA");
         res.send(articles);
     }).catch(function(e) {
         console.log(e);
@@ -64,6 +66,13 @@ app.delete("/articles", function(req, res) {
     });
 });
 
+// React routes
+app.get("*", function(req, res) {
+    res.sendFile(__dirname + "/public/index.html");
+});
+// ===========================================================
+
+// Listener ==================================================
 app.listen(PORT, function() {
     console.log("App listening on PORT: " + PORT);
 });

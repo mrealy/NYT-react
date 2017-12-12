@@ -27,7 +27,7 @@ var Saved = React.createClass({
     },
     renderArticles: function() {
         return this.state.savedArticles.map(function(article, index) {
-
+            var articledate = article.date.slice(5, 10) + "-" + article.date.slice(0, 4);            
             return (
                 <div key={index}>
                 <li className="list-group-item">
@@ -37,12 +37,12 @@ var Saved = React.createClass({
                     </span>
                     <span className="btn-group pull-right">
                         <a href={article.url} rel="noopener noreferrer" target="_blank">
-                        <button className="btn btn-default ">View Article</button>
+                            <button className="btn btn-default ">View Article</button>
                         </a>
                         <button className="btn btn-primary" onClick={function () { this.handleClick(article) }.bind(this)}>Delete</button>
                     </span>
                     </h3>
-                    <p>Date Published: {article.date}</p>
+                    <p>Date Published: {articledate}</p>
                 </li>
                 </div>
             );

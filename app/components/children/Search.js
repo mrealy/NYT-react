@@ -27,13 +27,14 @@ var Search = React.createClass({
         helper.getArticles(state).then(function (articles) {
             this.setState({ results: articles });
         }.bind(this));
+        
     },
     render: function() {
         return (
             <div>
                 <div className="panel panel-default">
                     <div className="panel-body">
-                        <h2>Search for an article</h2>
+                        <h2 className="col-md-12">Search for an article</h2>
                         <form onSubmit={this.handleSubmit}>
                             <div className="form-group col-md-12">
                                 <label htmlFor="topic">Topic:</label>
@@ -43,19 +44,33 @@ var Search = React.createClass({
                             </div>
                             
                             <div className="form-group col-md-12">
-                                <label> Date Range: </label>
-                                <input type="date" className="form-control col-md-6" id="startYear"
-                                value={this.state.startYear} onChange={this.handleChange}
-                                placeholder="Start Date" />
+                                <input type="checkbox" id="toggle" />
+                                <label htmlFor="toggle">
+                                    <span className="expand">
+                                        Search by Date Range
+                                        <span className="glyphicon glyphicon-expand" />
+                                        <span className="glyphicon glyphicon-collapse-down" />
+                                    </span>
+                                </label>
+                                <div id="date-ranges" className="row">
+                                    <div className="col-md-6">
+                                        <label htmlFor="startYear"> Start Date Range: </label>
+                                        <input type="date" className="form-control" id="startYear"
+                                        value={this.state.startYear} onChange={this.handleChange}
+                                        placeholder="Start Date" />
+                                    </div>
 
-                                <span className="input-group-addon" />
-
-                                <input type="date" className="form-control col-md-6" id="endYear"
-                                value={this.state.endYear} onChange={this.handleChange}
-                                placeholder="End Date" />
+                                    {/*<span className="input-group-addon" />*/}
+                                    <div className="col-md-6">
+                                        <label htmlFor="endYear"> End Date Range: </label>
+                                        <input type="date" className="form-control col-md-6" id="endYear"
+                                        value={this.state.endYear} onChange={this.handleChange}
+                                        placeholder="End Date" />
+                                    </div>
+                                </div>
                             </div>
                             <br/>
-                            <button className="btn btn-default" onClick={this.handleSubmit}>Search</button>
+                            <button id="search-button" className="btn btn-default" onClick={this.handleSubmit}>Search</button>
                         </form>
                     </div>
                 </div>

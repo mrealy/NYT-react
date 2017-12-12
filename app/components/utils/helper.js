@@ -3,10 +3,21 @@ var apiKey = "73886b6dc2e64ceda94844e8a02e5c06";
 
 var helper = {
     getArticles: function (state) {
-        var startQuery = state.startYear.trim() + "0101";
-        var endQuery = state.endYear.trim() + "1231";
-        var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + apiKey + "&q=" + state.topic + "&?begin_date=" + startQuery + "&?end_date=" + endQuery;
+        // remove hyphens from the startYear and endYear inputs for API query format.
+        var startQuery = state.startYear.replace(/-/g, "");
+        var endQuery = state.endYear.replace(/-/g, "");
         
+        if (startQuery !== "" && endQuery !== ""){
+            console.log("start/end is ", startQuery, endQuery);
+            var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + apiKey + "&q=" + state.topic + "&begin_date=" + startQuery + "&end_date=" + endQuery;
+            
+        } else {
+            console.log("NO START END QUERY");
+            var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + apiKey + "&q=" + state.topic;
+        }
+        // setting queryURL string including topic, start & end queries.
+        // var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + apiKey + "&q=" + state.topic + "&begin_date=" + startQuery + "&end_date=" + endQuery;
+        console.log('queryURL: ', queryURL);
         return axios.get(queryURL).then(function(results) {
             console.log("Axios results", results.data.response.docs);
             if (results.data.response) {
@@ -14,6 +25,7 @@ var helper = {
             }
         }).catch(function (e) {
             console.log(e);
+            alert("Oops, there are no articles with those parameters! Try a different topic.");            
             // If we don't get any results, return an empty string
             return "";
         });

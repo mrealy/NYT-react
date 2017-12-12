@@ -25,12 +25,13 @@ var Results = React.createClass({
     listArticles: function() {
         console.log(this.props);
         return this.props.articles.map(function(article, index) {
-            
+            var articledate = article.pub_date.slice(5, 10) + "-" + article.pub_date.slice(0, 4);
             return (
                 <div key={index}>
                     <li className="list-group-item">
                         <h3>{article.headline.main}</h3>
-                        <a href={article.web_url}>
+                        <p>Published: {articledate}</p>
+                        <a href={article.web_url} target="_blank">
                             <button className="btn btn-default">View</button>
                         </a>
                         <button className="btn btn-primary" onClick={function () { this.handleClick(article) }.bind(this) }>Save</button>
