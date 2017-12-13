@@ -10,18 +10,14 @@ var Saved = React.createClass({
     componentDidMount: function() {
         helper.getSaved().then(function(articleData) {
             this.setState({ savedArticles: articleData.data });
-            console.log("saved results", articleData);
         }.bind(this));
     },
     
     //handleClick for deleting articles
     handleClick: function(item) {
-        console.log("CLICKED DELETE");
-        console.log(item);
         helper.deleteSaved(item.title, item.date, item.url).then(function() {
             helper.getSaved().then(function(articleData) {
                 this.setState({ savedArticles: articleData.data });
-                console.log("saved results deleteClick", articleData.data);
             }.bind(this));
         }.bind(this));
     },

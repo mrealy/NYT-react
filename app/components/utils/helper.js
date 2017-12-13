@@ -6,18 +6,14 @@ var helper = {
         // remove hyphens from the startYear and endYear inputs for API query format.
         var startQuery = state.startYear.replace(/-/g, "");
         var endQuery = state.endYear.replace(/-/g, "");
-        
+        // setting queryURL string including topic, start & end queries.
         if (startQuery !== "" && endQuery !== ""){
-            console.log("start/end is ", startQuery, endQuery);
             var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + apiKey + "&q=" + state.topic + "&begin_date=" + startQuery + "&end_date=" + endQuery;
             
         } else {
-            console.log("NO START END QUERY");
             var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + apiKey + "&q=" + state.topic;
         }
-        // setting queryURL string including topic, start & end queries.
-        // var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + apiKey + "&q=" + state.topic + "&begin_date=" + startQuery + "&end_date=" + endQuery;
-        console.log('queryURL: ', queryURL);
+        // console.log('queryURL: ', queryURL);
         return axios.get(queryURL).then(function(results) {
             console.log("Axios results", results.data.response.docs);
             if (results.data.response) {
@@ -34,9 +30,7 @@ var helper = {
     //write a saveArticles function to save the article title and link on click of the save button
     saveArticle: function (title, date, url) {
         var savedArticle = { title: title, date: date, url: url };
-        console.log("savedArticle is", savedArticle);
         return axios.post("/articles", savedArticle).then(function (response) {
-            console.log("Axios post results", response.data._id);
             console.log(response);
             return response.data._id;
         }).catch(function (e) {
@@ -45,7 +39,6 @@ var helper = {
     },
     getSaved: function() {
         return axios.get("/articles").then(function(results) {
-            console.log("axios results getSaved", results);
             return results;
         });
     },
@@ -57,7 +50,6 @@ var helper = {
                 "url": url
             }
         }).then(function(results) {
-            console.log("axios reults deleteSaved", results);
             return results;
         });
     }

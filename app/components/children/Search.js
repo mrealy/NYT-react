@@ -15,7 +15,6 @@ var Search = React.createClass({
         };
     },
     handleChange: function (event) {
-        console.log("TEXT CHANGED");
         var newState = {};
         newState[event.target.id] = event.target.value;
         this.setState(newState);
@@ -23,7 +22,6 @@ var Search = React.createClass({
     handleSubmit: function (event) {
         event.preventDefault();
         var state = this.state;
-        console.log("CLICKED");
         helper.getArticles(state).then(function (articles) {
             this.setState({ results: articles });
         }.bind(this));
