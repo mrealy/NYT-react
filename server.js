@@ -21,7 +21,8 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static("./public"));
 
 //Mongo DB settings =====================================
-mongoose.connect("mongodb://localhost/NYTarticles");
+//mongoose.connect("mongodb://localhost/NYTarticles");
+mongoose.connect("mongodb://heroku_0gm3xv05:rbaiotpsm15ajn0c148kpdjc9s@ds131687.mlab.com:31687/heroku_0gm3xv05")
 var db = mongoose.connection;
 
 db.on("error", function(error) {
